@@ -1,0 +1,10 @@
+{
+  "name": "video-store-refactor",
+  "version": "0.0.0",
+  "description": "A video store example",
+  "main": "",
+  "repository": "",
+  "author": "Oleg Blokhin",
+  "dependencies": {
+  }
+}
