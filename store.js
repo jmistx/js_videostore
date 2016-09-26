@@ -6,10 +6,9 @@ function statement(customer, movies) {
     let result = `Rental Record for ${customer.name}\n`;
 
     for (let r of customer.rentals) {
-        let thisAmount = amountFor(r);
         frequentRenterPoints += frequentRenterPointsFor(r);
-        result += `\t${movieFor(r).title}\t${thisAmount}\n`;
-        totalAmount += thisAmount;
+        result += `\t${movieFor(r).title}\t${amountFor(r)}\n`;
+        totalAmount += amountFor(r);
     }
     // add footer lines
     result += `Amount owed is ${totalAmount}\n`;
