@@ -15,6 +15,13 @@ class Customer {
         }
         return result;
     }
+    get totalAmount() {
+        let result = 0;
+        for (let rental of this.rentals) {
+            result += rental.amount;
+        }
+        return result;
+    }
 }
 
 class Rental {
@@ -66,18 +73,9 @@ function statement(customerArg, movies) {
     for (let rental of customer.rentals) {
         result += `\t${rental.movie.title}\t${rental.amount}\n`;
     }
-    result += `Amount owed is ${totalAmount()}\n`;
+    result += `Amount owed is ${customer.totalAmount}\n`;
     result += `You earned ${customer.totalFrequentRenterPoints} frequent renter points\n`;
     return result;
-
-    function totalAmount() {
-        let result = 0;
-        for (let rental of customer.rentals) {
-            result += rental.amount;
-        }
-        return result;
-    }
-
     }
 
 let customer = {
