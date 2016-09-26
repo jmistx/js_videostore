@@ -8,6 +8,13 @@ class Customer {
 
     get name() {return this._data.name; }
     get rentals() {return this._data.rentals.map(r => new Rental(r, this._movies)); }
+    get totalFrequentRenterPoints() {
+        let result = 0;
+        for (let rental of this.rentals) {
+            result += rental.frequentRentalPoints;
+        }
+        return result;
+    }
 }
 
 class Rental {
@@ -29,7 +36,6 @@ class Rental {
     get amount() {
         let thisAmount = 0;
 
-        // determine amount for each movie
         switch (this.movie.code) {
             case "regular":
                 thisAmount = 2;
@@ -61,16 +67,8 @@ function statement(customerArg, movies) {
         result += `\t${rental.movie.title}\t${rental.amount}\n`;
     }
     result += `Amount owed is ${totalAmount()}\n`;
-    result += `You earned ${totalFrequentRenterPoints()} frequent renter points\n`;
+    result += `You earned ${customer.totalFrequentRenterPoints} frequent renter points\n`;
     return result;
-
-    function totalFrequentRenterPoints() {
-        let result = 0;
-        for (let rental of customer.rentals) {
-            result += rental.frequentRentalPoints;
-        }
-        return result;
-    }
 
     function totalAmount() {
         let result = 0;
