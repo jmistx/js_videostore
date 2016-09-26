@@ -26,7 +26,7 @@ function statement(customer, movies) {
                 }
                 break;
         }
-        frequentRenterPointsFor(r);
+        frequentRenterPoints += frequentRenterPointsFor(r);
 
         //print figures for this rental
         result += `\t${movieFor(r).title}\t${thisAmount}\n`;
@@ -65,9 +65,10 @@ function statement(customer, movies) {
 
     function frequentRenterPointsFor(r) {
         //add frequent renter points
-        frequentRenterPoints++;
+        let result = 1;
         // add bonus for a two day new release rental
-        if (movieFor(r).code === "new" && r.days > 2) frequentRenterPoints++;
+        if (movieFor(r).code === "new" && r.days > 2) result++;
+        return result;
     }
 }
 
