@@ -25,6 +25,31 @@ class Rental {
     get frequentRentalPoints() {
         return (this.movie.code === "new" && this.days > 2) ? 2 : 1;
     }
+
+    get amount() {
+        let thisAmount = 0;
+
+        // determine amount for each movie
+        switch (this.movie.code) {
+            case "regular":
+                thisAmount = 2;
+                if (this.days > 2) {
+                    thisAmount += (this.days - 2) * 1.5;
+                }
+                break;
+            case "new":
+                thisAmount = this.days * 3;
+                break;
+            case "childrens":
+                thisAmount = 1.5;
+                if (this.days > 3) {
+                    thisAmount += (this.days - 3) * 1.5;
+                }
+                break;
+        }
+
+        return thisAmount;
+    }
 }
 
 function statement(customerArg, movies) {
@@ -33,7 +58,7 @@ function statement(customerArg, movies) {
     let result = `Rental Record for ${customer.name}\n`;
 
     for (let rental of customer.rentals) {
-        result += `\t${rental.movie.title}\t${amountFor(rental)}\n`;
+        result += `\t${rental.movie.title}\t${rental.amount}\n`;
     }
     result += `Amount owed is ${totalAmount()}\n`;
     result += `You earned ${totalFrequentRenterPoints()} frequent renter points\n`;
@@ -50,34 +75,9 @@ function statement(customerArg, movies) {
     function totalAmount() {
         let result = 0;
         for (let rental of customer.rentals) {
-            result += amountFor(rental);
+            result += rental.amount;
         }
         return result;
-    }
-
-    function amountFor(rental) {
-        let thisAmount = 0;
-
-        // determine amount for each movie
-        switch (rental.movie.code) {
-            case "regular":
-                thisAmount = 2;
-                if (rental.days > 2) {
-                    thisAmount += (rental.days - 2) * 1.5;
-                }
-                break;
-            case "new":
-                thisAmount = rental.days * 3;
-                break;
-            case "childrens":
-                thisAmount = 1.5;
-                if (rental.days > 3) {
-                    thisAmount += (rental.days - 3) * 1.5;
-                }
-                break;
-        }
-
-        return thisAmount;
     }
 
     }
