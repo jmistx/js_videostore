@@ -1,6 +1,17 @@
 "use strict";
 
-function statement(customer, movies) {
+class Customer {
+    constructor(data) {
+        this._data = data;
+    }
+
+    get name() {return this._data.name; }
+    get rentals() {return this._data.rentals; }
+}
+
+function statement(customerArg, movies) {
+    const customer = new Customer(customerArg);
+
     let result = `Rental Record for ${customer.name}\n`;
 
     for (let r of customer.rentals) {
